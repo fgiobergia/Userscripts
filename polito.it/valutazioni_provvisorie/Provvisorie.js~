@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Valutazioni provvisorie
 // @namespace   http://fgiobergia.com
-// @version     0.2
+// @version     0.1
 // @description Segnala la presenza di valutazioni nella sezione Valutazioni Provvisorie
 // @match       https://didattica.polito.it/portal/page/portal/home/Studente*
 // @match       https://didattica.polito.it/pls/portal30/sviluppo.pagina_studente.main*
@@ -20,14 +20,8 @@ $(document).ready(function() {
             data = data.replace(/http:\/\//gi,'https://');
            	var page = $.parseHTML(data);
             for (var i=0;i<page.length;i++) {
-                if (page[i].constructor.name=='HTMLFontElement') {
-                    for (var j=0;j<page[i].children.length;j++) {
-                        if (page[i].children[j].id=='myTable') {
-                    		temp = page[i].children[j].rows.length-1;
-                            i=page.length;
-                            break;
-                        }
-                    }
+                if (page[i].constructor.name=='HTMLTableElement') {
+                    temp = page[i].rows.length-1;
                 }
             }
         }
@@ -35,3 +29,4 @@ $(document).ready(function() {
         $('a[href="/pls/portal30/sviluppo.esami_da_registrare"] b').append(" ("+temp+")");
     });
 });
+
