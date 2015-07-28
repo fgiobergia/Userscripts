@@ -8,4 +8,7 @@ Questo userscript calcola la media ponderata (pesata con i crediti) e aritmetica
 
 Se nessun esame viene selezionato, la media risultante sarà NaN. Il numero di crediti visualizzato (già dal sito, non dall'userscript) non viene aggiornato quando vengono cambiati gli esami selezionati (ma vengono tenuti in considerazione nel calcolo della media ponderata). 
 
-<sub><sup>(La media visualizzata nell'esempio è stata depurata dei 16 CFU peggiori, fyi)</sup></sub>
+**Update v0.8**: 
+- possibilità di modificare le righe presenti (numero di CFU e voto relativo) posizionandosi con il cursore sul campo da modificare
+- possibiltà di aggiungere nuovi voti (specificando nome della materia, numero di CFU e voto) (aggiunto un pulsante per aggiungere nuovi voti: i campi possono quindi essere modificati posizionandosi con il cursore sui vari valori)
+

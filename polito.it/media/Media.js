@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Media
 // @namespace   http://fgiobergia.com
-// @version     0.1
+// @version     0.8
 // @description Calcola media ponderata e aritmentica dei voti presenti nel Libretto Elettronico
 // @match       https://didattica.polito.it/portal/page/portal/home/Studente*
 // @match       https://didattica.polito.it/pls/portal30/sviluppo.pagina_studente.main*
@@ -17,19 +17,19 @@ $(document).ready(function() {
         var wsum = 0, wnum = 0, cfu, rank, anum = 0, asum = 0;
 		$('table').find('tr.policorpo').each(function(i) {
             if (i) {
-                if ($(this).find('input').prop('checked')) {
+                if ($(this).find('input[type=checkbox]').prop('checked')) {
                     var tds = $(this).find('td').each(function(j) {
 						if (j==1) {
-							cfu = $(this).text();
+							cfu = $(this).children().first().val();
                     	}
                         else if (j==2) {
-                            rank = $(this).text();
+                            rank = $(this).children().first().val();
                         }
                 	});
                     if (rank=='sup') {
                         rank = 25;
                     }
-                    rank = parseInt(rank);
+                    rank = parseFloat(rank);
                     cfu = parseInt(cfu);
                     wsum += rank*cfu;
                     wnum += cfu;
@@ -37,9 +37,27 @@ $(document).ready(function() {
                     anum++;
                 }
             }    
-		}); 
+		});
         $('#fg_weighted').html((wsum/wnum).toFixed(2));
         $('#fg_arithmetic').html((asum/anum).toFixed(2));
+    }
+    
+    function addRow() {
+        var row = $('table').find('tr.policorpo').slice(-1);
+        var color = (row.attr('bgcolor')==undefined || row.attr('bgcolor')=='#ffffff') ? '#dddddd' : '#ffffff';
+        row.after("<tr class='policorpo' bgcolor='"+color+"'>"+row.html()+"</tr>");
+        var new_row = row.next();
+        $(new_row).find('input').css('background',new_row.attr('bgcolor'));
+        new_row.children().first().html("<input value='Dummy exam'>");
+        new_row.children().first().children().first().css('background',new_row.attr('bgcolor'))
+        .css('border','0px').css('width','100%').css('height','12px').css('font-size','12px');
+        new_row.children().slice(1,2).children().first().val(Math.floor(Math.random()*3+3)*2);
+        new_row.children().slice(2,3).children().first().val(Math.floor(Math.random()*13+18));
+        
+        $('.fg_include').click(calcWeightedAverage);
+        $('.fg_rank').blur(calcWeightedAverage);
+        $('.fg_cfu').blur(calcWeightedAverage);
+        calcWeightedAverage();
     }
     
     var parent;
@@ -52,6 +70,7 @@ $(document).ready(function() {
             $(this).append('<td align="center"><input type="checkbox" class="fg_include" checked></td>');
         }
 	});
+    $(parent).children().slice(-2,-1).after('<tr><td class="policorpo"><input id = "fg_add_exam" type="button" value="Aggiungi insegnamento"></td></tr>');
     $(parent).children().last().children().last().prop('colspan',3);
     $(parent).append('<tr><td class="policorpo" align="right"><b>Media ponderata:</b></td>             \
                       <td class="policorpo" align="center"><b><span id="fg_weighted"></span></b></td>  \
@@ -59,12 +78,41 @@ $(document).ready(function() {
                       <tr><td class="policorpo" align="right"><b>Media aritmentica:</b></td>           \
                       <td class="policorpo" align="center"><b><span id="fg_arithmetic"></span></b></td>\
                       <td align="center" colspan="3">&nbsp;</td></tr>');
+   
     
-    calcWeightedAverage();
     
-    $('.fg_include').click(function() {
-        calcWeightedAverage();
+    $('table').find('tr.policorpo').each(function(i) {
+        if (i) {
+            var tds = $(this).find('td').each(function(j,v) {
+                if (j==1 || j==2) {
+                    var val = $(this).text();
+                    var label = (j==1) ? 'fg_cfu' : 'fg_rank';
+                    $(this).html("<input class = '"+label+"' value='"+val+"'>");
+                    $(this).children().css('border','0px').css('background',$(this).parent().attr('bgcolor'))
+                    .css('width','60px').css('height','12px').css('text-align','center').css('font-size','12px');
+                }
+            });
+        }
     });
     
+    /* compute the weighted average on loading */
+    calcWeightedAverage();
     
+    /* listeners */
+    $('.fg_include').click(calcWeightedAverage);
+    $('.fg_rank').blur(calcWeightedAverage);
+    $('.fg_cfu').blur(calcWeightedAverage);
+    $('#fg_add_exam').click(addRow);
+    $('.fg_rank').keydown(function(k) {
+        if (k.keyCode == 13) {
+            calcWeightedAverage();
+        }
+    });
+    $('.fg_cfu').keydown(function(k) {
+        if (k.keyCode == 13) {
+            calcWeightedAverage();
+        }
+    });
+    
+
 });
