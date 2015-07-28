@@ -15,17 +15,17 @@ $(document).ready(function() {
     
     function calcWeightedAverage () {
         var wsum = 0, wnum = 0, cfu, rank, anum = 0, asum = 0;
-		$('table').find('tr.policorpo').each(function(i) {
+        $('table').find('tr.policorpo').each(function(i) {
             if (i) {
                 if ($(this).find('input[type=checkbox]').prop('checked')) {
                     var tds = $(this).find('td').each(function(j) {
-						if (j==1) {
-							cfu = $(this).children().first().val();
-                    	}
+                        if (j==1) {
+                            cfu = $(this).children().first().val();
+                        }
                         else if (j==2) {
                             rank = $(this).children().first().val();
                         }
-                	});
+                    });
                     if (rank=='sup') {
                         rank = 25;
                     }
@@ -37,7 +37,7 @@ $(document).ready(function() {
                     anum++;
                 }
             }    
-		});
+        });
         $('#fg_weighted').html((wsum/wnum).toFixed(2));
         $('#fg_arithmetic').html((asum/anum).toFixed(2));
     }
@@ -69,7 +69,8 @@ $(document).ready(function() {
         else {
             $(this).append('<td align="center"><input type="checkbox" class="fg_include" checked></td>');
         }
-	});
+    });
+
     $(parent).children().slice(-2,-1).after('<tr><td class="policorpo"><input id = "fg_add_exam" type="button" value="Aggiungi insegnamento"></td></tr>');
     $(parent).children().last().children().last().prop('colspan',3);
     $(parent).append('<tr><td class="policorpo" align="right"><b>Media ponderata:</b></td>             \
@@ -79,8 +80,6 @@ $(document).ready(function() {
                       <td class="policorpo" align="center"><b><span id="fg_arithmetic"></span></b></td>\
                       <td align="center" colspan="3">&nbsp;</td></tr>');
    
-    
-    
     $('table').find('tr.policorpo').each(function(i) {
         if (i) {
             var tds = $(this).find('td').each(function(j,v) {
