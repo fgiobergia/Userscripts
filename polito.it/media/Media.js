@@ -26,7 +26,7 @@ $(document).ready(function() {
                             rank = $(this).children().first().val();
                         }
                     });
-                    if (rank=='sup') {
+		    if (isNaN(parseInt(rank))) {
                         rank = 25;
                     }
                     rank = parseFloat(rank);
