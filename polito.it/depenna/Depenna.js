@@ -4,7 +4,7 @@
 // @version     0.1
 // @description Tira una "riga" sugli esami già conseguiti presenti nel carico didattico
 // @match       https://didattica.polito.it/portal/page/portal/home/Studente*
-// @match       https://didattica.polito.it/pls/portal30/sviluppo.pagina_studente.main*
+// @match       https://didattica.polito.it/pls/portal30/sviluppo.pagina_studente*main*
 // @copyright   2014+, Flavio Giobergia
 // @license     http://opensource.org/licenses/MIT
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js
