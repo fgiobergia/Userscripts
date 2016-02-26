@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Valutazioni provvisorie
 // @namespace   http://fgiobergia.com
-// @version     0.2
+// @version     0.3
 // @description Segnala la presenza di valutazioni nella sezione Valutazioni Provvisorie
 // @match       https://didattica.polito.it/portal/page/portal/home/Studente*
 // @match       https://didattica.polito.it/pls/portal30/sviluppo.pagina_studente*main*
