@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Media
 // @namespace   http://fgiobergia.com
-// @version     0.9
+// @version     1.0
 // @description Calcola media ponderata e aritmentica dei voti presenti nel Libretto Elettronico
 // @match       https://didattica.polito.it/portal/page/portal/home/Studente*
 // @match       https://didattica.polito.it/pls/portal30/sviluppo.pagina_studente*main*
@@ -44,12 +44,11 @@ $(document).ready(function() {
     
     function addRow() {
         var row = $('table').find('tr.policorpo').slice(-1);
-        var color = (row.attr('bgcolor')==undefined || row.attr('bgcolor')=='#ffffff') ? '#dddddd' : '#ffffff';
-        row.after("<tr class='policorpo fg_dummy' bgcolor='"+color+"'>"+row.html()+"</tr>");
+        row.after("<tr class='policorpo fg_dummy'>"+row.html()+"</tr>");
         var new_row = row.next();
-        $(new_row).find('input').css('background',new_row.attr('bgcolor'));
+        $(new_row).find('input').css('background-color',$(new_row).css('background-color'));
         new_row.children().first().html("<input value='Dummy exam'>");
-        new_row.children().first().children().first().css('background',new_row.attr('bgcolor'))
+        new_row.children().first().children().first().css('background-color',$(new_row).css('background-color'))
         .css('border','0px').css('width','100%').css('font-size','12px');
         new_row.children().slice(1,2).children().first().val(Math.floor(Math.random()*3+3)*2);
         new_row.children().slice(2,3).children().first().val(Math.floor(Math.random()*13+18));
@@ -88,7 +87,7 @@ $(document).ready(function() {
                     var val = $(this).text();
                     var label = (j==1) ? 'fg_cfu' : 'fg_rank';
                     $(this).html("<input class = '"+label+"' value='"+val+"'>");
-                    $(this).children().css('border','0px').css('background',$(this).parent().attr('bgcolor'))
+                    $(this).children().css('border','0px').css('background-color',$(this).parent().css('background-color'))
                     .css('width','60px').css('text-align','center').css('font-size','12px');
                 }
             });
@@ -113,6 +112,4 @@ $(document).ready(function() {
             calcWeightedAverage();
         }
     });
-    
-
 });
