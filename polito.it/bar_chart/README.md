@@ -1,7 +1,7 @@
 # BarChart
 
-![risultato dello script 'BarChart.js', non compattato](https://raw.githubusercontent.com/fgiobergia/Userscripts/master/polito.it/barchart/barchart_nc.png)
-![risultato dello script 'BarChart.js', compattato](https://raw.githubusercontent.com/fgiobergia/Userscripts/master/polito.it/barchart/barchart_c.png)
+![risultato dello script 'BarChart.js', non compattato](https://raw.githubusercontent.com/fgiobergia/Userscripts/master/polito.it/bar_chart/barchart_nc.png)
+![risultato dello script 'BarChart.js', compattato](https://raw.githubusercontent.com/fgiobergia/Userscripts/master/polito.it/bar_chart/barchart_c.png)
 
 
 Questo userscript fornisce una visualizzazione grafica dell'andamento della propria carriera, in termini di media dei voti presi per ogni mese.
